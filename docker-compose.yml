@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  turnstile-solver:
+    build: .
+    container_name: turnstile-solver
+    ports:
+      - "5072:5072"
+    environment:
+      - DISPLAY=:99
+      - PYTHONUNBUFFERED=1
+      - API_KEY=${API_KEY:-}          # API Key 验证 (留空则不验证)
+      - THREAD_COUNT=${THREAD_COUNT:-2}  # 浏览器线程数
+    # 内存限制 (每个浏览器约 500MB)
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+    # 共享内存，浏览器需要
+    shm_size: '1gb'
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5072/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
