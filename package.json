@@ -1,0 +1,14 @@
+{
+  "name": "turnstile-solver-leapcell",
+  "version": "1.0.2",
+  "description": "Cloudflare Turnstile solver with HTTP/SOCKS5 proxy support",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "puppeteer": "^24.0.0",
+    "proxy-chain": "^2.5.5"
+  }
+}
